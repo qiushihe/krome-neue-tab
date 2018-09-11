@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+  "version": "TO_BE_READ_FROM_PACKAGE_JSON",
+  "name": "Krome Neue Tab",
+  "description": "TO_BE_READ_FROM_PACKAGE_JSON",
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "permissions": [
+    "tabs",
+    "topSites",
+    "bookmarks"
+  ]
+}
