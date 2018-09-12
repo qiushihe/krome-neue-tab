@@ -1,8 +1,9 @@
 import { PureComponent, Children } from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 import flow from "lodash/fp/flow";
 import map from "lodash/fp/map";
 
+import { FOLDER } from "/src/enums/bookmark-types";
 import Item from "./item";
 
 const renderBookmarks = flow([
@@ -10,7 +11,10 @@ const renderBookmarks = flow([
     console.log("renderBookmarks", bookmark);
 
     return (
-      <Item title={bookmark.title} />
+      <Item
+        title={bookmark.title}
+        isFolder={bookmark.type === FOLDER}
+      />
     );
   }),
   Children.toArray
