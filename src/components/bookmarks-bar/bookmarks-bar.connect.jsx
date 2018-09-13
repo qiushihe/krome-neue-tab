@@ -2,13 +2,10 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import { bookmarks as getBookmarks } from "/src/selectors/bookmarks.selector";
+import { withExtraProps } from "/src/helpers/selector.helpers";
 import { BOOKMARKS_BAR } from "/src/enums/bookmarks-sections";
 
 import BookmarksBar from "./bookmarks-bar";
-
-const withExtraProps = (selector, extras) => (state, props) => {
-  return selector(state, { ...props, ...extras });
-};
 
 export default connect(
   createStructuredSelector({

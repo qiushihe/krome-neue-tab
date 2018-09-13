@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { fetchAllBookmarks } from "/src/actions/bookmarks.action";
 
+import TooltipsProvider from "/src/components/tooltips-provider";
 import BookmarksBar from "/src/components/bookmarks-bar";
 
 class App extends PureComponent {
@@ -13,9 +14,9 @@ class App extends PureComponent {
 
   render() {
     return (
-      <div>
+      <TooltipsProvider>
         <BookmarksBar />
-      </div>
+      </TooltipsProvider>
     );
   }
 }

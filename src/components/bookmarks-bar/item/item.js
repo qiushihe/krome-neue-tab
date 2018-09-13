@@ -36,13 +36,14 @@ const WithIcon = styled.div`
 class Item extends PureComponent {
   render() {
     const {
+      id,
       title,
       isFolder,
       onClick
     } = this.props;
 
     return (
-      <Base onClick={onClick}>
+      <Base id={`bookmarks-bar-item-${id}`} onClick={onClick}>
         <WithIcon iconUrl={isFolder ? folderIcon : fileIcon}>
           {title}
         </WithIcon>
@@ -52,12 +53,14 @@ class Item extends PureComponent {
 }
 
 Item.propTypes = {
+  id: PropTypes.string,
   title: PropTypes.string,
   isFolder: PropTypes.bool,
   onClick: PropTypes.func
 };
 
 Item.defaultProps = {
+  id: "",
   title: "",
   isFolder: false,
   onClick: () => {}
