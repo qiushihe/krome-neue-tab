@@ -12,7 +12,7 @@ const Base = styled.a`
   flex-direction: row;
   align-items: center;
   margin: 0;
-  padding: 6px 8px;
+  padding: 6px 18px 6px 24px;
   font-family: "Helvetica Neue", sans-serif;
   font-size: 13px;
   cursor: pointer;
@@ -40,14 +40,22 @@ class BookmarksTooltipItem extends PureComponent {
       title,
       type,
       url,
-      onClick
+      onClick,
+      onMouseOver,
+      onMouseOut
     } = this.props;
+
+    const hoverEventHandlers = type === FOLDER ? {
+      onMouseOver,
+      onMouseOut
+    } : {};
 
     return (
       <Base
         id={`bookmarks-tooltip-item-${id}`}
-        onClick={onClick}
         href={url}
+        onClick={onClick}
+        {...hoverEventHandlers}
       >
         <Icon>
           <img src={type === FOLDER ? folderIcon : fileIcon} width={16} height={16} />
@@ -65,7 +73,9 @@ BookmarksTooltipItem.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
   url: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  onMouseOver: PropTypes.func,
+  onMouseOut: PropTypes.func
 };
 
 BookmarksTooltipItem.defaultProps = {
@@ -73,7 +83,9 @@ BookmarksTooltipItem.defaultProps = {
   title: "",
   type: "",
   url: "",
-  onClick: () => {}
+  onClick: () => {},
+  onMouseOver: () => {},
+  onMouseOut: () => {}
 };
 
 export default BookmarksTooltipItem;

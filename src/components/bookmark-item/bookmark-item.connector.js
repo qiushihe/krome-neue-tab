@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import { title, type, url } from "/src/selectors/bookmarks.selector";
-import { showTooltip } from "/src/actions/tooltips.action";
+import { showTooltip, hideAllTooltips } from "/src/actions/tooltips.action";
 import { BOOKMARKS_BAR } from "/src/enums/bookmarks-sections";
 import { FOLDER } from "/src/enums/bookmark-types";
 
@@ -25,7 +25,8 @@ export default connect(
         contentComponent,
         contentComponentProps
       })
-    )
+    ),
+    hideAllTooltips: () => (dispatch) => dispatch(hideAllTooltips())
   },
   (stateProps, dispatchProps, ownProps) => ({
     ...ownProps,
@@ -33,9 +34,10 @@ export default connect(
     ...dispatchProps,
     id: ownProps.bookmarkId,
     onClick: (evt) => {
+      evt.stopPropagation();
+
       if (stateProps.type === FOLDER) {
         evt.preventDefault();
-        evt.stopPropagation();
 
         const tooltipProps = { topDisabled: true };
 
@@ -57,6 +59,18 @@ export default connect(
             bookmarksParentId: ownProps.bookmarkId
           }
         });
+      } else {
+        return dispatchProps.hideAllTooltips();
+      }
+    },
+    onMouseOver: (evt) => {
+      if (stateProps.type === FOLDER) {
+        console.log("onMouseOver", evt);
+      }
+    },
+    onMouseOut: (evt) => {
+      if (stateProps.type === FOLDER) {
+        console.log("onMouseOut", evt);
       }
     }
   })

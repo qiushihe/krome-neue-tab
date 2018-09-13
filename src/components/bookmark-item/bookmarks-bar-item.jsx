@@ -51,8 +51,8 @@ class BookmarksBarItem extends PureComponent {
     return (
       <Base
         id={`bookmarks-bar-item-${id}`}
-        onClick={onClick}
         href={url}
+        onClick={onClick}
       >
         <Icon>
           <img src={type === FOLDER ? folderIcon : fileIcon} width={16} height={16} />
