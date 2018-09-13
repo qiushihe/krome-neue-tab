@@ -12,7 +12,7 @@ const Base = styled.a`
   flex-direction: row;
   align-items: center;
   border-radius: 9999px;
-  margin: 0 2px;
+  margin: 0 2px 0 0;
   padding: 6px 8px;
   font-family: "Helvetica Neue", sans-serif;
   font-size: 13px;

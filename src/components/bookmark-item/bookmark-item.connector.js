@@ -35,6 +35,7 @@ export default connect(
     onClick: (evt) => {
       if (stateProps.type === FOLDER) {
         evt.preventDefault();
+        evt.stopPropagation();
 
         const tooltipProps = { topDisabled: true };
 

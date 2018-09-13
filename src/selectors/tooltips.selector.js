@@ -3,6 +3,8 @@ import get from "lodash/fp/get";
 import getOr from "lodash/fp/getOr";
 import values from "lodash/fp/values";
 import map from "lodash/fp/map";
+import negate from "lodash/fp/negate";
+import isEmpty from "lodash/fp/isEmpty";
 
 import { getProp } from "/src/helpers/selector.helpers";
 
@@ -16,6 +18,11 @@ export const tooltips = createSelector(
 export const tooltipIds = createSelector(
   tooltips,
   map("id")
+);
+
+export const hasTooltips = createSelector(
+  tooltips,
+  negate(isEmpty)
 );
 
 export const tooltip = createSelector(
