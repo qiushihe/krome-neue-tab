@@ -26,14 +26,17 @@ class Tooltip extends PureComponent {
   }
 
   render() {
-    const { contentComponent, contentComponentProps } = this.props;
+    const { tooltipProps, contentComponent, contentComponentProps } = this.props;
     const { targetRekt } = this.state;
 
     const ContentComponent = CONTENT_COMPONENTS[contentComponent];
 
     if (targetRekt && ContentComponent) {
       return (
-        <FlowTip target={targetRekt}>
+        <FlowTip
+          target={targetRekt}
+          {...tooltipProps}
+        >
           <ContentComponent {...contentComponentProps} />
         </FlowTip>
       );
@@ -45,12 +48,14 @@ class Tooltip extends PureComponent {
 
 Tooltip.propTypes = {
   targetHtmlId: PropTypes.string,
+  tooltipProps: PropTypes.object,
   contentComponent: PropTypes.string,
   contentComponentProps: PropTypes.object
 };
 
 Tooltip.defaultProps = {
   targetHtmlId: "",
+  tooltipProps: {},
   contentComponent: "",
   contentComponentProps: {}
 };

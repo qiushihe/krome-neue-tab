@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import get from "lodash/fp/get";
 
+import { FOLDER } from "/src/enums/bookmark-types";
 import fileIcon from "/src/images/icon-file.png";
 import folderIcon from "/src/images/icon-folder.png";
 
-const Base = styled.div`
+const Base = styled.a`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -16,6 +17,8 @@ const Base = styled.div`
   font-family: "Helvetica Neue", sans-serif;
   font-size: 13px;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 
   &:hover {
     background-color: #eeeeee;
@@ -26,44 +29,56 @@ const Base = styled.div`
   }
 `;
 
-const WithIcon = styled.div`
-  background-image: url(${get("iconUrl")});
-  background-repeat: no-repeat;
-  background-position: left center;
-  padding-left: 20px;
+const Icon = styled.div`
+  padding-right: 6px;
 `;
 
-class Item extends PureComponent {
+const Label = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+`;
+
+class BookmarksBarItem extends PureComponent {
   render() {
     const {
       id,
       title,
-      isFolder,
+      type,
+      url,
       onClick
     } = this.props;
 
     return (
-      <Base id={`bookmarks-bar-item-${id}`} onClick={onClick}>
-        <WithIcon iconUrl={isFolder ? folderIcon : fileIcon}>
+      <Base
+        id={`bookmarks-bar-item-${id}`}
+        onClick={onClick}
+        href={url}
+      >
+        <Icon>
+          <img src={type === FOLDER ? folderIcon : fileIcon} width={16} height={16} />
+        </Icon>
+        <Label>
           {title}
-        </WithIcon>
+        </Label>
       </Base>
     );
   }
 }
 
-Item.propTypes = {
+BookmarksBarItem.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
-  isFolder: PropTypes.bool,
+  type: PropTypes.string,
+  url: PropTypes.string,
   onClick: PropTypes.func
 };
 
-Item.defaultProps = {
+BookmarksBarItem.defaultProps = {
   id: "",
   title: "",
-  isFolder: false,
+  type: "",
+  url: "",
   onClick: () => {}
 };
 
-export default Item;
+export default BookmarksBarItem;

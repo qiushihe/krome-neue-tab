@@ -6,10 +6,12 @@ export const showTooltip = createAction(
   SHOW_TOOLTIP,
   ({
     targetHtmlId,
+    tooltipProps,
     contentComponent,
     contentComponentProps
   }) => ({
     targetHtmlId,
+    tooltipProps,
     contentComponent,
     contentComponentProps
   })

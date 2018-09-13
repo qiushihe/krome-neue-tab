@@ -3,6 +3,7 @@ import { createStructuredSelector } from "reselect";
 
 import {
   targetHtmlId,
+  tooltipProps,
   contentComponent,
   contentComponentProps
 } from "/src/selectors/tooltips.selector";
@@ -12,6 +13,7 @@ import Tooltip from "./tooltip";
 export default connect(
   createStructuredSelector({
     targetHtmlId,
+    tooltipProps,
     contentComponent,
     contentComponentProps
   })

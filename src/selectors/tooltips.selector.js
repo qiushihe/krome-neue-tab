@@ -31,6 +31,11 @@ export const targetHtmlId = createSelector(
   get("targetHtmlId")
 );
 
+export const tooltipProps = createSelector(
+  tooltip,
+  getOr({}, "tooltipProps")
+);
+
 export const contentComponent = createSelector(
   tooltip,
   get("contentComponent")

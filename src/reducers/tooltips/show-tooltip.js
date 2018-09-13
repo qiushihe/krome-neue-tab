@@ -3,6 +3,7 @@ import uuidv4 from "uuid/v4";
 export default (state = {}, {
   payload: {
     targetHtmlId,
+    tooltipProps,
     contentComponent,
     contentComponentProps
   }
@@ -14,6 +15,7 @@ export default (state = {}, {
     [tooltipId]: {
       id: tooltipId,
       targetHtmlId,
+      tooltipProps,
       contentComponent,
       contentComponentProps
     }

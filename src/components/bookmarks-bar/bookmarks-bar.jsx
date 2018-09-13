@@ -4,8 +4,7 @@ import styled from "styled-components";
 import flow from "lodash/fp/flow";
 import map from "lodash/fp/map";
 
-import { FOLDER } from "/src/enums/bookmark-types";
-import Item from "./item";
+import { BookmarksBarItem } from "/src/components/bookmark-item";
 
 const Base = styled.div`
   display: flex;
@@ -23,20 +22,16 @@ const RootLevelItems = styled.div`
 
 class BookmarksBar extends PureComponent {
   renderBookmarks() {
-    const { bookmarks, showFolderContent } = this.props;
+    const { bookmarkIds } = this.props;
 
     return flow([
-      map((bookmark) => {
+      map((bookmarkId) => {
         return (
-          <Item
-            id={bookmark.id}
-            title={bookmark.title}
-            isFolder={bookmark.type === FOLDER}
-          />
+          <BookmarksBarItem atRootLevel={true} bookmarkId={bookmarkId} />
         );
       }),
       Children.toArray
-    ])(bookmarks);
+    ])(bookmarkIds);
   }
 
   render() {
@@ -51,11 +46,11 @@ class BookmarksBar extends PureComponent {
 }
 
 BookmarksBar.propTypes = {
-  bookmarks: PropTypes.array
+  bookmarkIds: PropTypes.array
 };
 
 BookmarksBar.defaultProps = {
-  bookmarks: []
+  bookmarkIds: []
 };
 
 export default BookmarksBar;
