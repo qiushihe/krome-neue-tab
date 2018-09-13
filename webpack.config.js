@@ -7,7 +7,7 @@ var babelRc = require("./.babelrc");
 
 module.exports = function (options) {
   return {
-    mode: "development",
+    mode: "production",
     entry: {
       bundle: path.resolve(__dirname, "src/index")
     },
