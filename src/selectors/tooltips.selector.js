@@ -1,4 +1,6 @@
 import { createSelector } from "reselect";
+import flow from "lodash/fp/flow";
+import find from "lodash/fp/find";
 import get from "lodash/fp/get";
 import getOr from "lodash/fp/getOr";
 import values from "lodash/fp/values";
@@ -23,6 +25,15 @@ export const tooltipIds = createSelector(
 export const hasTooltips = createSelector(
   tooltips,
   negate(isEmpty)
+);
+
+export const hasTooltipForBookmarkId = createSelector(
+  getProp("bookmarkId"),
+  tooltips,
+  (bookmarkId, _tooltips) => flow([
+    find({ targetBookmarkId: bookmarkId }),
+    negate(isEmpty)
+  ])(_tooltips)
 );
 
 export const tooltip = createSelector(

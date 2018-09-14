@@ -63,3 +63,8 @@ export const url = createSelector(
   bookmark,
   get("url")
 );
+
+export const parentId = createSelector(
+  bookmark,
+  get("parentId")
+);

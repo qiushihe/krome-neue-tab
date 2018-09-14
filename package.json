@@ -4,7 +4,10 @@
   "main": "lib/js/index.js",
   "description": "A new-tab page for Firefox that looks like Chrome's. Because that's too difficult to do.",
   "scripts": {
-    "build": "rm -fr dist && webpack -p && ./scripts/build-manifest.js"
+    "clean": "rm -fr dist/*",
+    "build-js": "webpack -p",
+    "build-manifest": "./scripts/build-manifest.js",
+    "build": "npm run clean && npm run build-js && npm run build-manifest"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

@@ -26,11 +26,13 @@ const Base = styled.a`
 
 const Icon = styled.div`
   padding-right: 6px;
+  pointer-events: none;
 `;
 
 const Label = styled.div`
   white-space: nowrap;
   overflow: hidden;
+  pointer-events: none;
 `;
 
 class BookmarksTooltipItem extends PureComponent {
@@ -45,17 +47,13 @@ class BookmarksTooltipItem extends PureComponent {
       onMouseOut
     } = this.props;
 
-    const hoverEventHandlers = type === FOLDER ? {
-      onMouseOver,
-      onMouseOut
-    } : {};
-
     return (
       <Base
         id={`bookmarks-tooltip-item-${id}`}
         href={url}
         onClick={onClick}
-        {...hoverEventHandlers}
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
       >
         <Icon>
           <img src={type === FOLDER ? folderIcon : fileIcon} width={16} height={16} />
