@@ -43,8 +43,8 @@ class BookmarksTooltipItem extends PureComponent {
       type,
       url,
       onClick,
-      onMouseOver,
-      onMouseOut
+      onMouseEnter,
+      onMouseLeave
     } = this.props;
 
     return (
@@ -52,8 +52,8 @@ class BookmarksTooltipItem extends PureComponent {
         id={`bookmarks-tooltip-item-${id}`}
         href={url}
         onClick={onClick}
-        onMouseOver={onMouseOver}
-        onMouseOut={onMouseOut}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       >
         <Icon>
           <img src={type === FOLDER ? folderIcon : fileIcon} width={16} height={16} />
@@ -72,8 +72,8 @@ BookmarksTooltipItem.propTypes = {
   type: PropTypes.string,
   url: PropTypes.string,
   onClick: PropTypes.func,
-  onMouseOver: PropTypes.func,
-  onMouseOut: PropTypes.func
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func
 };
 
 BookmarksTooltipItem.defaultProps = {
@@ -82,8 +82,8 @@ BookmarksTooltipItem.defaultProps = {
   type: "",
   url: "",
   onClick: () => {},
-  onMouseOver: () => {},
-  onMouseOut: () => {}
+  onMouseEnter: () => {},
+  onMouseLeave: () => {}
 };
 
 export default BookmarksTooltipItem;

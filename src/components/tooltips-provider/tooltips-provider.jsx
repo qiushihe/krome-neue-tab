@@ -15,10 +15,10 @@ const Base = styled.div`
 
 class TooltipsProvider extends PureComponent {
   render() {
-    const { tooltipIds, children, hideAllTooltips } = this.props;
+    const { tooltipIds, onBaseClick, children } = this.props;
 
     return (
-      <Base onClick={hideAllTooltips}>
+      <Base onClick={onBaseClick}>
         {Children.toArray(flattenDeep([children]))}
         {flow([
           map((tooltipId) => (
@@ -33,17 +33,17 @@ class TooltipsProvider extends PureComponent {
 
 TooltipsProvider.propTypes = {
   tooltipIds: PropTypes.array,
+  onBaseClick: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node)
-  ]),
-  hideAllTooltips: PropTypes.func
+  ])
 };
 
 TooltipsProvider.defaultProps = {
   tooltipIds: [],
-  children: [],
-  hideAllTooltips: () => {}
+  onBaseClick: () => {},
+  children: []
 };
 
 export default TooltipsProvider;

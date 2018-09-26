@@ -4,12 +4,12 @@ import find from "lodash/fp/find";
 import get from "lodash/fp/get";
 import cloneDeep from "lodash/fp/cloneDeep";
 
-export default (state = {}, { payload: { targetBookmarkId } }) => {
+export default (state = {}, { payload: { targetType, targetId } }) => {
   const newState = cloneDeep(state);
 
   const tooltipId = flow([
     values,
-    find({ targetBookmarkId }),
+    find({ targetType, targetId }),
     get("id")
   ])(newState);
 

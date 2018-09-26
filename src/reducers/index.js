@@ -2,10 +2,12 @@ import { combineReducers } from "redux";
 
 import bookmarks from "./bookmarks.reducer";
 import tooltips from "./tooltips.reducer";
+import bookmarkTooltips from "./bookmark-tooltips.reducer";
 
 const combinedReducer = combineReducers({
   bookmarks,
-  tooltips
+  tooltips,
+  bookmarkTooltips
 });
 
 export default (state = {}, action) => {

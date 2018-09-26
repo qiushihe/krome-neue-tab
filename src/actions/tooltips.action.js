@@ -7,13 +7,15 @@ export const HIDE_ALL_TOOLTIP = "HIDE_ALL_TOOLTIP";
 export const showTooltip = createAction(
   SHOW_TOOLTIP,
   ({
-    targetBookmarkId,
+    targetType,
+    targetId,
     targetHtmlId,
     tooltipProps,
     contentComponent,
     contentComponentProps
   }) => ({
-    targetBookmarkId,
+    targetType,
+    targetId,
     targetHtmlId,
     tooltipProps,
     contentComponent,
@@ -23,7 +25,7 @@ export const showTooltip = createAction(
 
 export const hideTooltip = createAction(
   HIDE_TOOLTIP,
-  ({ targetBookmarkId }) => ({ targetBookmarkId })
+  ({ targetType, targetId }) => ({ targetType, targetId })
 );
 
 export const hideAllTooltips = createAction(HIDE_ALL_TOOLTIP);

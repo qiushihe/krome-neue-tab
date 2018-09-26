@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import identity from "lodash/fp/identity";
+import isFunction from "lodash/fp/isFunction";
 
 import { hideAllTooltips } from "/src/actions/tooltips.action";
 import { hasTooltips, tooltipIds } from "/src/selectors/tooltips.selector";
@@ -19,6 +20,8 @@ export default connect(
     ...ownProps,
     ...stateProps,
     ...dispatchProps,
-    hideAllTooltips: stateProps.hasTooltips ? dispatchProps.hideAllTooltips : identity
+    onBaseClick: isFunction(ownProps.onBaseClick)
+      ? ownProps.onBaseClick
+      : (stateProps.hasTooltips ? dispatchProps.hideAllTooltips : identity)
   })
 )(TooltipsProvider);

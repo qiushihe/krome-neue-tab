@@ -8,6 +8,7 @@ import map from "lodash/fp/map";
 import negate from "lodash/fp/negate";
 import isEmpty from "lodash/fp/isEmpty";
 
+import { BOOKMARK } from "/src/enums/tooltip-target-types";
 import { getProp } from "/src/helpers/selector.helpers";
 
 import { tooltips as getAllTooltips } from "./root.selector";
@@ -31,7 +32,7 @@ export const hasTooltipForBookmarkId = createSelector(
   getProp("bookmarkId"),
   tooltips,
   (bookmarkId, _tooltips) => flow([
-    find({ targetBookmarkId: bookmarkId }),
+    find({ targetType: BOOKMARK, targetId: bookmarkId }),
     negate(isEmpty)
   ])(_tooltips)
 );

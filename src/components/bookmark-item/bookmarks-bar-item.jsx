@@ -45,7 +45,9 @@ class BookmarksBarItem extends PureComponent {
       title,
       type,
       url,
-      onClick
+      onClick,
+      onMouseEnter,
+      onMouseLeave
     } = this.props;
 
     return (
@@ -53,6 +55,8 @@ class BookmarksBarItem extends PureComponent {
         id={`bookmarks-bar-item-${id}`}
         href={url}
         onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       >
         <Icon>
           <img src={type === FOLDER ? folderIcon : fileIcon} width={16} height={16} />
@@ -70,7 +74,9 @@ BookmarksBarItem.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
   url: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func
 };
 
 BookmarksBarItem.defaultProps = {
@@ -78,7 +84,9 @@ BookmarksBarItem.defaultProps = {
   title: "",
   type: "",
   url: "",
-  onClick: () => {}
+  onClick: () => {},
+  onMouseEnter: () => {},
+  onMouseLeave: () => {}
 };
 
 export default BookmarksBarItem;
