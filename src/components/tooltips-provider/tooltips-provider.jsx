@@ -22,7 +22,7 @@ class TooltipsProvider extends PureComponent {
         {Children.toArray(flattenDeep([children]))}
         {flow([
           map((tooltipId) => (
-            <Tooltip tooltipId={tooltipId} />
+            <Tooltip key={tooltipId} tooltipId={tooltipId} />
           )),
           Children.toArray
         ])(tooltipIds)}

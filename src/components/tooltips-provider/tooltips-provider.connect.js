@@ -3,7 +3,7 @@ import { createStructuredSelector } from "reselect";
 import identity from "lodash/fp/identity";
 import isFunction from "lodash/fp/isFunction";
 
-import { hideAllTooltips } from "/src/actions/tooltips.action";
+import { setAllTooltips } from "/src/actions/tooltips.action";
 import { hasTooltips, tooltipIds } from "/src/selectors/tooltips.selector";
 
 import TooltipsProvider from "./tooltips-provider";
@@ -14,7 +14,7 @@ export default connect(
     hasTooltips
   }),
   {
-    hideAllTooltips: () => (dispatch) => dispatch(hideAllTooltips())
+    setAllTooltips: ({ tooltips }) => (dispatch) => dispatch(setAllTooltips({ tooltips }))
   },
   (stateProps, dispatchProps, ownProps) => ({
     ...ownProps,
@@ -22,6 +22,6 @@ export default connect(
     ...dispatchProps,
     onBaseClick: isFunction(ownProps.onBaseClick)
       ? ownProps.onBaseClick
-      : (stateProps.hasTooltips ? dispatchProps.hideAllTooltips : identity)
+      : (stateProps.hasTooltips ? dispatchProps.setAllTooltips({ tooltips: [] }) : identity)
   })
 )(TooltipsProvider);

@@ -4,6 +4,7 @@ import find from "lodash/fp/find";
 import get from "lodash/fp/get";
 import getOr from "lodash/fp/getOr";
 import values from "lodash/fp/values";
+import sortBy from "lodash/fp/sortBy";
 import map from "lodash/fp/map";
 import negate from "lodash/fp/negate";
 import isEmpty from "lodash/fp/isEmpty";
@@ -15,7 +16,8 @@ import { tooltips as getAllTooltips } from "./root.selector";
 
 export const tooltips = createSelector(
   getAllTooltips,
-  values
+  values,
+  sortBy("index")
 );
 
 export const tooltipIds = createSelector(
