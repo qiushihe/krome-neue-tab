@@ -2,12 +2,14 @@ import { PureComponent, Children, createContext } from "react";
 import PropTypes from "prop-types";
 import flow from "lodash/fp/flow";
 import get from "lodash/fp/get";
+import last from "lodash/fp/last";
 import map, { convert as convertMap } from "lodash/fp/map";
 import find from "lodash/fp/find";
 import negate from "lodash/fp/negate";
 import isEmpty from "lodash/fp/isEmpty";
 import flattenDeep from "lodash/fp/flattenDeep";
 import identity from "lodash/fp/identity";
+import slice from "lodash/fp/slice";
 
 import TooltipsProvider from "/src/components/tooltips-provider";
 import { FOLDER } from "/src/enums/bookmark-types";
@@ -39,6 +41,28 @@ const getBookmarkType = ({ bookmarks, bookmarkId }) => {
   ])(bookmarks);
 };
 
+const getBookmarkParentId = ({ bookmarks, bookmarkId }) => {
+  return flow([
+    find({ id: bookmarkId }),
+    get("parentId")
+  ])(bookmarks);
+};
+
+const trimUnitlLastBookmarkIdMatch = ({ trail, bookmarkId }) => {
+  if (isEmpty(trail)) {
+    return trail;
+  }
+
+  if (flow([last, get("bookmarkId")])(trail) === bookmarkId) {
+    return trail;
+  }
+
+  return trimUnitlLastBookmarkIdMatch({
+    trail: slice(0, -1)(trail),
+    bookmarkId
+  });
+};
+
 export const Context = createContext({
   onClickBookmark: identity,
   onMouseEnterBookmark: identity,
@@ -54,20 +78,23 @@ class BookmarkTooltipsProvider extends PureComponent {
     this.handleTooltipsProviderBaseClick = this.handleTooltipsProviderBaseClick.bind(this);
     this.handleClickBookmark = this.handleClickBookmark.bind(this);
     this.handleMouseEnterBookmark = this.handleMouseEnterBookmark.bind(this);
-    this.handleMouseLeaveBookmark = this.handleMouseLeaveBookmark.bind(this);
 
     this.state.context = {
       onClickBookmark: this.handleClickBookmark,
       onMouseEnterBookmark: this.handleMouseEnterBookmark,
-      onMouseLeaveBookmark: this.handleMouseLeaveBookmark
+      onMouseLeaveBookmark: identity
     };
+
+    // Use a non-state variable to keep track of the pending tooltip,
+    // this way we don't have to worry about unnecessary re-renders while manipulating it.
+    this.pendingTooltipTimeout = null;
   }
 
   handleTooltipsProviderBaseClick() {
     const { hasTooltips } = this.props;
 
     if (hasTooltips) {
-      this.setTooltipTrail([]);
+      this.closeAllBookmarkTooltips();
     }
   }
 
@@ -81,16 +108,13 @@ class BookmarkTooltipsProvider extends PureComponent {
 
       if (hasTooltipForBookmarkId({ tooltips, bookmarkId })) {
         if (isBookmarkAtRootLevel({ bookmarks, bookmarkId })) {
-          this.setTooltipTrail([]);
+          this.closeAllBookmarkTooltips();
         }
       } else {
-        this.setTooltipTrail([
-          ...map(({ id }) => ({ tooltipId: id }))(tooltips),
-          { bookmarkId, targetHtmlId: evt.currentTarget.id }
-        ]);
+        this.openBookmarkTooltip({ bookmarkId, targetHtmlId: evt.currentTarget.id });
       }
     } else {
-      this.setTooltipTrail([]);
+      this.closeAllBookmarkTooltips();
     }
   }
 
@@ -108,26 +132,52 @@ class BookmarkTooltipsProvider extends PureComponent {
       !hasTooltipForBookmarkId({ tooltips, bookmarkId })
     ) {
       // ... then hide all shown tooltip and open a tooltip for the one the mouse just entered.
-      this.setTooltipTrail([{
-        bookmarkId,
-        targetHtmlId: evt.currentTarget.id
-      }]);
+      this.openBookmarkTooltip({ bookmarkId, targetHtmlId: evt.currentTarget.id });
     } else if (
       // If the mouse enters a non-root level bookmark ...
       !isBookmarkAtRootLevel({ bookmarks, bookmarkId }) &&
       // ... AND if that bookmark is a folder ...
-      getBookmarkType({ bookmarks, bookmarkId }) === FOLDER &&
-      // ... AND if that bookmark doesn't have a tooltip for it ...
-      !hasTooltipForBookmarkId({ tooltips, bookmarkId })
+      getBookmarkType({ bookmarks, bookmarkId }) === FOLDER
     ) {
-      // console.log("OPEN after a wait", bookmarkId);
-    } else {
-      // console.log("handleMouseEnterBookmark", bookmarkId);
+      // (grab the targetId because the `evt` reference wont persist into a different thread)
+      const targetHtmlId = evt.currentTarget.id;
+
+      // (and wait a little bit)
+      this.clearPendingTooltipTimeout();
+      this.pendingTooltipTimeout = window.setTimeout(() => {
+        // ... AND now if that bookmark doesn't have a tooltip for it ...
+        if (!hasTooltipForBookmarkId({ tooltips, bookmarkId })) {
+          // ... then open a tooltip for the one the mouse just entered.
+          this.openBookmarkTooltip({ bookmarkId, targetHtmlId });
+        }
+      }, 300);
     }
   }
 
-  handleMouseLeaveBookmark(evt, { bookmarkId }) {
-    // console.log("onMouseLeaveBookmark", bookmarkId);
+  openBookmarkTooltip({ bookmarkId, targetHtmlId }) {
+    const { bookmarks, tooltipTrail } = this.props;
+
+    this.clearPendingTooltipTimeout();
+
+    this.setTooltipTrail([
+      ...trimUnitlLastBookmarkIdMatch({
+        trail: tooltipTrail,
+        bookmarkId: getBookmarkParentId({ bookmarks, bookmarkId })
+      }),
+      { bookmarkId, targetHtmlId }
+    ]);
+  }
+
+  closeAllBookmarkTooltips() {
+    this.clearPendingTooltipTimeout();
+    this.setTooltipTrail([]);
+  }
+
+  clearPendingTooltipTimeout() {
+    if (this.pendingTooltipTimeout) {
+      window.clearTimeout(this.pendingTooltipTimeout);
+      this.pendingTooltipTimeout = null;
+    }
   }
 
   setTooltipTrail(tooltips) {
@@ -184,6 +234,7 @@ BookmarkTooltipsProvider.propTypes = {
   tooltips: PropTypes.array,
   hasTooltips: PropTypes.bool,
   setAllTooltips: PropTypes.func,
+  tooltipTrail: PropTypes.array,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node)
@@ -195,6 +246,7 @@ BookmarkTooltipsProvider.defaultProps = {
   tooltips: [],
   hasTooltips: false,
   setAllTooltips: () => {},
+  tooltipTrail: [],
   children: []
 };
 
