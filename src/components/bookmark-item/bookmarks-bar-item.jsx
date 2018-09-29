@@ -15,7 +15,7 @@ const Base = styled.a`
   margin: 0 2px 0 0;
   padding: 6px 8px;
   font-family: "Helvetica Neue", sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
   text-decoration: none;
   color: inherit;
@@ -30,7 +30,7 @@ const Base = styled.a`
 `;
 
 const Icon = styled.div`
-  padding-right: 6px;
+  padding-right: 8px;
 `;
 
 const Label = styled.div`

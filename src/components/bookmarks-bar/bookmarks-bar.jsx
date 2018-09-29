@@ -12,6 +12,7 @@ const Base = styled.div`
   align-items: center;
   height: 40px;
   border-bottom: 1px solid #e8e8e8;
+  padding-left: 6px;
 `;
 
 const RootLevelItems = styled.div`
