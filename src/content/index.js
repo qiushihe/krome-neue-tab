@@ -1,13 +1,21 @@
-const base64ArrayBuffer = (buffer) => window.btoa(
-  [].slice.call(new Uint8Array(buffer))
-    .map((b) => String.fromCharCode(b))
-    .join("")
-);
+import base64ArrayBuffer from "./base64ArrayBuffer";
+import backgroundRequest from "./backgroundRequest";
+
+backgroundRequest({ message: "ping" }).then((res) => {
+  console.log("[Content] Ping Response:", res);
+}).catch((err) => {
+  console.log("[Content] Ping Error:", err);
+});
 
 const pageUrl = new URL(window.location.href);
 
-browser.runtime.onMessage.addListener((req, sender) => {
-  console.log("[Content] Got message!", req, sender);
+backgroundRequest({
+  message: "check-origin",
+  payload: { origin: pageUrl.origin }
+}).then((res) => {
+  console.log("[Content] Check Origin Response:", res);
+}).catch((err) => {
+  console.log("[Content] Check Origin Error:", err);
 });
 
 fetch(`${pageUrl.origin}/favicon.ico`).then((res) => {
@@ -15,21 +23,19 @@ fetch(`${pageUrl.origin}/favicon.ico`).then((res) => {
     console.log("[Content] try search for link");
   } else {
     res.arrayBuffer().then((buffer) => {
-      browser.runtime.sendMessage({
-        msg: "set-favicon-src",
+      backgroundRequest({
+        message: "set-favicon-src",
         payload: {
           origin: pageUrl.origin,
           faviconSrc: `data:image/x-icon;base64,${base64ArrayBuffer(buffer)}`
         }
+      }).then((res) => {
+        console.log("[Content] Set Favicon Response:", res);
+      }).catch((err) => {
+        console.log("[Content] Set Favicon Error:", err);
       });
     });
   }
 }).catch(() => {
   console.log("[Content] try search for link");
-});
-
-browser.runtime.sendMessage({
-  ping: true
-}).then((...args) => {
-  console.log("[Content] sent", args)
 });

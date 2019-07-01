@@ -1,9 +1,20 @@
 browser.runtime.onMessage.addListener((req, sender) => {
-  if (req.ping) {
-    console.log("[Background] Got ping!", sender);
-    browser.tabs.sendMessage(sender.tab.id, { pong: true });
-  } else if (req.msg === "set-favicon-src") {
-    console.log("[Background] Got set-favicon-src!");
+  const senderTabId = sender.tab.id;
+
+  if (req.message === "ping") {
+    console.log("[Background] Got ping");
+
+    browser.tabs.sendMessage(senderTabId, {
+      requestId: req.requestId,
+      message: "pong"
+    });
+  } else if (req.message === "set-favicon-src") {
+    console.log("[Background] Got set-favicon-src");
+
+    browser.tabs.sendMessage(senderTabId, {
+      requestId: req.requestId,
+      message: "ok"
+    });
 
     browser.storage.local.set({
       test: "42"
@@ -12,5 +23,9 @@ browser.runtime.onMessage.addListener((req, sender) => {
     }).then((data) => {
       console.log("got from storage:", data);
     });
+  } else if (req.message === "check-origin") {
+    browser.bookmarks.getSubTree("toolbar_____").then(console.log);
+  } else {
+    console.log("[Background] Unknown message:", req);
   }
 });
