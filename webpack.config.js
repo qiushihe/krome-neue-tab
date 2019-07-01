@@ -9,18 +9,17 @@ module.exports = function (options) {
   return {
     mode: "production",
     entry: {
-      bundle: path.resolve(__dirname, "src/index")
+      bundle: path.resolve(__dirname, "src/extension/index"),
+      content: path.resolve(__dirname, "src/content/index"),
+      background: path.resolve(__dirname, "src/background/index")
     },
     output: {
-      filename: "[name].[hash].js",
-      sourceMapFilename: "[name].[hash].js.map",
+      filename: "[name].js",
+      sourceMapFilename: "[name].js.map",
       path: path.resolve(__dirname, "dist")
     },
     resolve: {
-      extensions: [".js", ".jsx"],
-      alias: {
-        "/src": path.resolve(__dirname, 'src')
-      }
+      extensions: [".js", ".jsx"]
     },
     module: {
       rules: [{
@@ -44,7 +43,9 @@ module.exports = function (options) {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, "templates", "newtab.html")
+        template: path.resolve(__dirname, "templates", "newtab.html"),
+        excludeChunks: ["content", "background"],
+        hash: true
       })
     ]
   };

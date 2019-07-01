@@ -3,12 +3,27 @@
   "version": "TO_BE_READ_FROM_PACKAGE_JSON",
   "name": "Krome Neue Tab",
   "description": "TO_BE_READ_FROM_PACKAGE_JSON",
+  "applications": {
+    "gecko": {
+      "id": "krome-neue-tab@krome-neue-tab.com"
+    }
+  },
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
   "permissions": [
+    "<all_urls>",
     "tabs",
     "topSites",
-    "bookmarks"
-  ]
+    "bookmarks",
+    "storage",
+    "unlimitedStorage"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["content.js"]
+  }]
 }

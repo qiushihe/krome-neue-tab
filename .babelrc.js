@@ -6,7 +6,7 @@ module.exports = {
     ["module-resolver", {
       "root": ".",
       "alias": {
-        "/src": "./src"
+        "/src": "./src/extension"
       }
     }]
   ],
