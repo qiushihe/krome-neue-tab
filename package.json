@@ -4,9 +4,9 @@
   "main": "lib/js/index.js",
   "description": "A new-tab page for Firefox that looks like Chrome's. Because that's too difficult to do.",
   "scripts": {
-    "clean": "rm -fr dist/*",
+    "clean": "shx rm -fr dist/*",
     "build-js": "webpack -p",
-    "build-manifest": "./scripts/build-manifest.js",
+    "build-manifest": "node ./scripts/build-manifest.js",
     "build": "npm run clean && npm run build-js && npm run build-manifest"
   },
   "devDependencies": {
@@ -32,6 +32,7 @@
     "redux-actions": "^2.6.1",
     "redux-thunk": "^2.3.0",
     "reselect": "^3.0.1",
+    "shx": "^0.3.2",
     "styled-components": "^3.4.6",
     "url-loader": "^1.1.1",
     "uuid": "^3.3.2",
