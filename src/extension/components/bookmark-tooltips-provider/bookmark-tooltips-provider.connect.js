@@ -5,10 +5,10 @@ import get from "lodash/fp/get";
 import map from "lodash/fp/map";
 import find from "lodash/fp/find";
 
-import { clickBase } from "/src/actions/bookmark-tooltips.action";
-import { setAllTooltips } from "/src/actions/tooltips.action";
-import { bookmarks } from "/src/selectors/bookmarks.selector";
-import { tooltips, hasTooltips } from "/src/selectors/tooltips.selector";
+import { clickBase } from "/src/extension/actions/bookmark-tooltips.action";
+import { setAllTooltips } from "/src/extension/actions/tooltips.action";
+import { bookmarks } from "/src/extension/selectors/bookmarks.selector";
+import { tooltips, hasTooltips } from "/src/extension/selectors/tooltips.selector";
 
 import BookmarkTooltipsProvider from "./bookmark-tooltips-provider";
 

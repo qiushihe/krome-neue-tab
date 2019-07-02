@@ -2,7 +2,7 @@ import { handleActions } from "redux-actions";
 
 import {
   PARSE_BOOKMARKS_TREE
-} from "/src/actions/bookmarks.action";
+} from "/src/extension/actions/bookmarks.action";
 
 import parseBookmarksTree from "./bookmarks/parse-bookmarks-tree";
 

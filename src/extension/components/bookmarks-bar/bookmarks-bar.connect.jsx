@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { bookmarkIds as getBookmarkIds } from "/src/selectors/bookmarks.selector";
-import { withExtraProps } from "/src/helpers/selector.helpers";
-import { BOOKMARKS_BAR } from "/src/enums/bookmarks-sections";
+import { bookmarkIds as getBookmarkIds } from "/src/extension/selectors/bookmarks.selector";
+import { BOOKMARKS_BAR } from "/src/extension/enums/bookmarks-sections";
+import { withExtraProps } from "/src/extension/selectors/selector.helper";
 
 import BookmarksBar from "./bookmarks-bar";
 

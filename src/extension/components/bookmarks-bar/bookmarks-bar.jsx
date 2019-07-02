@@ -4,7 +4,7 @@ import styled from "styled-components";
 import flow from "lodash/fp/flow";
 import map from "lodash/fp/map";
 
-import { BookmarksBarItem } from "/src/components/bookmark-item";
+import { BookmarksBarItem } from "/src/extension/components/bookmark-item";
 
 const Base = styled.div`
   display: flex;

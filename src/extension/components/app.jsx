@@ -1,10 +1,10 @@
 import { PureComponent } from "react";
 import { connect } from "react-redux";
 
-import { fetchAllBookmarks } from "/src/actions/bookmarks.action";
+import { fetchAllBookmarks } from "/src/extension/actions/bookmarks.action";
 
-import BookmarkTooltipsProvider from "/src/components/bookmark-tooltips-provider";
-import BookmarksBar from "/src/components/bookmarks-bar";
+import BookmarkTooltipsProvider from "/src/extension/components/bookmark-tooltips-provider";
+import BookmarksBar from "/src/extension/components/bookmarks-bar";
 
 class App extends PureComponent {
   componentDidMount() {

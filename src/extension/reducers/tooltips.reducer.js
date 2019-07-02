@@ -1,6 +1,6 @@
 import { handleActions } from "redux-actions";
 
-import { SET_ALL_TOOLTIP } from "/src/actions/tooltips.action";
+import { SET_ALL_TOOLTIP } from "/src/extension/actions/tooltips.action";
 
 import setAllTooltips from "./tooltips/set-all-tooltip";
 

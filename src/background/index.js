@@ -24,6 +24,8 @@ browser.runtime.onMessage.addListener((req, sender) => {
       console.log("got from storage:", data);
     });
   } else if (req.message === "check-origin") {
+    console.log("[Background] Got check-origin");
+
     browser.bookmarks.getSubTree("toolbar_____").then(console.log);
   } else {
     console.log("[Background] Unknown message:", req);

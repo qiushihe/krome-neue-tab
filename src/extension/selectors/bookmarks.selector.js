@@ -9,7 +9,7 @@ import compact from "lodash/fp/compact";
 import map from "lodash/fp/map";
 import get from "lodash/fp/get";
 
-import { getProp } from "/src/helpers/selector.helpers";
+import { getProp } from "/src/extension/selectors/selector.helper";
 
 import { bookmarks as getAllBookmarks } from "./root.selector";
 

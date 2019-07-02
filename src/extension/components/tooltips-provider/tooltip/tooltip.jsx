@@ -2,7 +2,7 @@ import { PureComponent } from "react";
 import PropTypes from "prop-types";
 import FlowTip from "flowtip-react-dom";
 
-import CONTENT_COMPONENTS from "/src/enums/tooltip-content-components";
+import CONTENT_COMPONENTS from "/src/extension/enums/tooltip-content-components";
 
 class Tooltip extends PureComponent {
   constructor(...args) {

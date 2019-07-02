@@ -2,11 +2,11 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import flow from "lodash/fp/flow";
 
-import { title, type, url } from "/src/selectors/bookmarks.selector";
+import { title, type, url } from "/src/extension/selectors/bookmarks.selector";
 
 import {
   Context as BookmarkTooltipsProviderContext
-} from "/src/components/bookmark-tooltips-provider";
+} from "/src/extension/components/bookmark-tooltips-provider";
 
 const withBookmarkTooltipsProviderContext = (Komponent) => (props) => {
   const { bookmarkId } = props;

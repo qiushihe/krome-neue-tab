@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import get from "lodash/fp/get";
 
-import { FOLDER } from "/src/enums/bookmark-types";
-import fileIcon from "/src/images/icon-file.png";
-import folderIcon from "/src/images/icon-folder.png";
+import { FOLDER } from "/src/extension/enums/bookmark-types";
+import fileIcon from "/src/extension/images/icon-file.png";
+import folderIcon from "/src/extension/images/icon-folder.png";
 
 const Base = styled.a`
   display: flex;

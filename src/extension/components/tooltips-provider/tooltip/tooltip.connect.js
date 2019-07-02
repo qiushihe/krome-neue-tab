@@ -6,7 +6,7 @@ import {
   tooltipProps,
   contentComponent,
   contentComponentProps
-} from "/src/selectors/tooltips.selector";
+} from "/src/extension/selectors/tooltips.selector";
 
 import Tooltip from "./tooltip";
 

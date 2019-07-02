@@ -9,8 +9,8 @@ import map from "lodash/fp/map";
 import negate from "lodash/fp/negate";
 import isEmpty from "lodash/fp/isEmpty";
 
-import { BOOKMARK } from "/src/enums/tooltip-target-types";
-import { getProp } from "/src/helpers/selector.helpers";
+import { BOOKMARK } from "/src/extension/enums/tooltip-target-types";
+import { getProp } from "/src/extension/selectors/selector.helper";
 
 import { tooltips as getAllTooltips } from "./root.selector";
 

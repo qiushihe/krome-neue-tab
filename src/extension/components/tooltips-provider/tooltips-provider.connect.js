@@ -3,8 +3,8 @@ import { createStructuredSelector } from "reselect";
 import identity from "lodash/fp/identity";
 import isFunction from "lodash/fp/isFunction";
 
-import { setAllTooltips } from "/src/actions/tooltips.action";
-import { hasTooltips, tooltipIds } from "/src/selectors/tooltips.selector";
+import { setAllTooltips } from "/src/extension/actions/tooltips.action";
+import { hasTooltips, tooltipIds } from "/src/extension/selectors/tooltips.selector";
 
 import TooltipsProvider from "./tooltips-provider";
 

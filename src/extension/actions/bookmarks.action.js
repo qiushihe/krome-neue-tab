@@ -1,8 +1,8 @@
 import { createAction } from "redux-actions";
 
+import { FIREFOX } from "/src/extension/enums/bookmarks-sources";
+import { BOOKMARKS_BAR } from "/src/extension/enums/bookmarks-sections";
 import { getBookmarksBarSubTree } from "/src/helpers/bookmarks.helper";
-import { FIREFOX } from "/src/enums/bookmarks-sources";
-import { BOOKMARKS_BAR } from "/src/enums/bookmarks-sections";
 
 export const PARSE_BOOKMARKS_TREE = "PARSE_BOOKMARKS_TREE";
 

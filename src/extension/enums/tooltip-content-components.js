@@ -1,4 +1,4 @@
-import BookmarksTooltip from "/src/components/bookmarks-tooltip";
+import BookmarksTooltip from "/src/extension/components/bookmarks-tooltip";
 
 export default {
   BookmarksTooltip

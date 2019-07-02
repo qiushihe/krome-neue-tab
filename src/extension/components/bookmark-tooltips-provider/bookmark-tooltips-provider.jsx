@@ -11,10 +11,10 @@ import flattenDeep from "lodash/fp/flattenDeep";
 import identity from "lodash/fp/identity";
 import slice from "lodash/fp/slice";
 
-import TooltipsProvider from "/src/components/tooltips-provider";
-import { FOLDER } from "/src/enums/bookmark-types";
-import { BOOKMARK } from "/src/enums/tooltip-target-types";
-import { BOOKMARKS_BAR } from "/src/enums/bookmarks-sections";
+import TooltipsProvider from "/src/extension/components/tooltips-provider";
+import { FOLDER } from "/src/extension/enums/bookmark-types";
+import { BOOKMARK } from "/src/extension/enums/tooltip-target-types";
+import { BOOKMARKS_BAR } from "/src/extension/enums/bookmarks-sections";
 
 const uncappedMap = convertMap({ cap: false });
 const isNotEmpty = negate(isEmpty);
