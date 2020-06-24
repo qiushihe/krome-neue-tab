@@ -1,5 +1,5 @@
-import base64ArrayBuffer from "./base64ArrayBuffer";
-import backgroundRequest from "./backgroundRequest";
+import base64ArrayBuffer from "./base64-array-buffer";
+import backgroundRequest from "./background-request";
 
 backgroundRequest({ message: "ping" }).then((res) => {
   console.log("[Content] Ping Response:", res);
