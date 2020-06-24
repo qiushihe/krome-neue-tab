@@ -9,7 +9,7 @@ browser.runtime.onMessage.addListener((req, sender) => {
       message: "pong"
     });
   } else if (req.message === "set-favicon-src") {
-    console.log("[Background] Got set-favicon-src");
+    console.log("[Background] Got set-favicon-src", req.payload);
 
     browser.tabs.sendMessage(senderTabId, {
       requestId: req.requestId,
@@ -17,9 +17,9 @@ browser.runtime.onMessage.addListener((req, sender) => {
     });
 
     browser.storage.local.set({
-      test: "42"
+      [`favicon:${req.payload.origin}`]: req.payload.faviconSrc,
     }).then(() => {
-      return browser.storage.local.get("test");
+      return browser.storage.local.get(`favicon:${req.payload.origin}`);
     }).then((data) => {
       console.log("got from storage:", data);
     });

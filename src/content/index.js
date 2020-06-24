@@ -19,7 +19,7 @@ backgroundRequest({
 });
 
 fetch(`${pageUrl.origin}/favicon.ico`).then((res) => {
-  if (res.status != 200) {
+  if (res.status !== 200) {
     console.log("[Content] try search for link");
   } else {
     res.arrayBuffer().then((buffer) => {

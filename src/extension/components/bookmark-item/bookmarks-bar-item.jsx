@@ -1,7 +1,6 @@
 import { PureComponent } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import get from "lodash/fp/get";
 
 import { FOLDER } from "/src/extension/enums/bookmark-types";
 import fileIcon from "/src/extension/images/icon-file.png";
@@ -50,6 +49,13 @@ class BookmarksBarItem extends PureComponent {
       onMouseLeave
     } = this.props;
 
+    let iconSrc = type === FOLDER ? folderIcon : fileIcon;
+
+    if (url === "https://www.reddit.com/") {
+      console.log('BookmarksBarItem', url);
+      browser.storage.local.get("favicon:https://www.reddit.com").then(console.log);
+    }
+
     return (
       <Base
         id={`bookmarks-bar-item-${id}`}
@@ -59,7 +65,7 @@ class BookmarksBarItem extends PureComponent {
         onMouseLeave={onMouseLeave}
       >
         <Icon>
-          <img src={type === FOLDER ? folderIcon : fileIcon} width={16} height={16} />
+          <img src={iconSrc} width={16} height={16} />
         </Icon>
         <Label>
           {title}
