@@ -2,9 +2,9 @@ import { PureComponent } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { FOLDER } from "/src/extension/enums/bookmark-types";
-import fileIcon from "/src/extension/images/icon-file.png";
-import folderIcon from "/src/extension/images/icon-folder.png";
+import {getUrlOrigin} from "/src/helpers/urls.helper";
+
+import BookmarkIcon from "./bookmark-icon.connect";
 
 const Base = styled.a`
   display: flex;
@@ -28,10 +28,6 @@ const Base = styled.a`
   }
 `;
 
-const Icon = styled.div`
-  padding-right: 8px;
-`;
-
 const Label = styled.div`
   white-space: nowrap;
   overflow: hidden;
@@ -49,13 +45,6 @@ class BookmarksBarItem extends PureComponent {
       onMouseLeave
     } = this.props;
 
-    let iconSrc = type === FOLDER ? folderIcon : fileIcon;
-
-    if (url === "https://www.reddit.com/") {
-      console.log('BookmarksBarItem', url);
-      browser.storage.local.get("favicon:https://www.reddit.com").then(console.log);
-    }
-
     return (
       <Base
         id={`bookmarks-bar-item-${id}`}
@@ -64,12 +53,8 @@ class BookmarksBarItem extends PureComponent {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <Icon>
-          <img src={iconSrc} width={16} height={16} />
-        </Icon>
-        <Label>
-          {title}
-        </Label>
+        <BookmarkIcon type={type} origin={getUrlOrigin(url)} />
+        <Label>{title}</Label>
       </Base>
     );
   }

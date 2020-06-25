@@ -1,8 +1,10 @@
 import thunkMiddleware from "redux-thunk";
 
-import faviconMiddleware from './redux';
+import reduxMiddleware from './redux';
+import faviconMiddleware from './favicon';
 
 export default () => [
   thunkMiddleware,
+  ...reduxMiddleware,
   ...faviconMiddleware
 ];

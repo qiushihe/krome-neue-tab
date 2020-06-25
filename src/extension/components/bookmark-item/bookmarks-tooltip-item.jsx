@@ -1,11 +1,10 @@
 import { PureComponent } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import get from "lodash/fp/get";
 
-import { FOLDER } from "/src/extension/enums/bookmark-types";
-import fileIcon from "/src/extension/images/icon-file.png";
-import folderIcon from "/src/extension/images/icon-folder.png";
+import {getUrlOrigin} from "/src/helpers/urls.helper";
+
+import BookmarkIcon from "./bookmark-icon.connect";
 
 const Base = styled.a`
   display: flex;
@@ -22,11 +21,6 @@ const Base = styled.a`
   &:hover {
     background-color: #e8eaed;
   }
-`;
-
-const Icon = styled.div`
-  padding-right: 8px;
-  pointer-events: none;
 `;
 
 const Label = styled.div`
@@ -55,12 +49,8 @@ class BookmarksTooltipItem extends PureComponent {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <Icon>
-          <img src={type === FOLDER ? folderIcon : fileIcon} width={16} height={16} />
-        </Icon>
-        <Label>
-          {title}
-        </Label>
+        <BookmarkIcon type={type} origin={getUrlOrigin(url)} />
+        <Label>{title}</Label>
       </Base>
     );
   }

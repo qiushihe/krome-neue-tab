@@ -11,13 +11,18 @@ import get from "lodash/fp/get";
 
 import { getProp } from "/src/extension/selectors/selector.helper";
 
-import { bookmarks as getAllBookmarks } from "./root.selector";
+import { bookmarks as bookmarksState } from "./root.selector";
+
+export const allBookmarks = createSelector(
+  bookmarksState,
+  values
+);
 
 export const bookmarks = createSelector(
   getProp("bookmarksSection"),
   getProp("bookmarksParentId"),
-  getAllBookmarks,
-  (bookmarksSection, bookmarksParentId, allBookmarks) => {
+  allBookmarks,
+  (bookmarksSection, bookmarksParentId, bookmarks) => {
     const filters = {};
 
     if (!isUndefined(bookmarksSection)) {
@@ -29,10 +34,9 @@ export const bookmarks = createSelector(
     }
 
     return flow(compact([
-      values,
       isEmpty(filters) ? null : filter(filters),
       sortBy("index")
-    ]))(allBookmarks);
+    ]))(bookmarks);
   }
 );
 
@@ -43,7 +47,7 @@ export const bookmarkIds = createSelector(
 
 export const bookmark = createSelector(
   getProp("bookmarkId"),
-  getAllBookmarks,
+  bookmarksState,
   (bookmarkId, allBookmarks) => {
     return get(bookmarkId)(allBookmarks);
   }

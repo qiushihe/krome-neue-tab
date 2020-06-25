@@ -1,22 +1,7 @@
 import base64ArrayBuffer from "./base64-array-buffer";
 import backgroundRequest from "./background-request";
 
-backgroundRequest({ message: "ping" }).then((res) => {
-  console.log("[Content] Ping Response:", res);
-}).catch((err) => {
-  console.log("[Content] Ping Error:", err);
-});
-
 const pageUrl = new URL(window.location.href);
-
-backgroundRequest({
-  message: "check-origin",
-  payload: { origin: pageUrl.origin }
-}).then((res) => {
-  console.log("[Content] Check Origin Response:", res);
-}).catch((err) => {
-  console.log("[Content] Check Origin Error:", err);
-});
 
 fetch(`${pageUrl.origin}/favicon.ico`).then((res) => {
   if (res.status !== 200) {
